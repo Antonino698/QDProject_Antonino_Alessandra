@@ -4,3 +4,5 @@ from telegram.ext import Application,Updater, CommandHandler, MessageHandler, fi
 from datetime import datetime, timedelta
 
 from logging import Logger
+from src.lib.MySQLclass import *
+db = MySQLDatabase()
