@@ -5,3 +5,7 @@ DB_CONFIG = {
     'database': 'qualitydev_db',
     'port': 3306,  # Porta di default per MySQL
 }
+BOT_CONFIG = {
+    'TOKEN': 'TELEGRAM TOKEN',
+    #'USERNAME': '@TestQD2023bot',
+}
