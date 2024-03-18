@@ -133,3 +133,88 @@ async def confirmation(update: Update, context: CallbackContext) -> int:
     await update.message.reply_text(confirmation_message, reply_markup = reply_markup)
     
     return BUTTON_HANDLER
+
+async def button_click(update: Update, context: CallbackContext) -> int:
+    query= update.callback_query
+    id_user = query.message.chat_id
+    data = query.data
+        
+    # Assume che il campo 'data' abbia la forma 'valore1:valore2'
+    parts = data.split('@')
+    
+    if len(parts) == 2:
+        valore1 = parts[0]
+        valore2 = parts[1]
+
+        # gestisce la risposta in base al 'valore1'
+        if valore1 == 'manageDate':
+            context.user_data['date'] = valore2
+            # Connessione al database
+            try:
+                db.connect()
+                # selezione poi la spiego
+                new_day = ("SELECT count(*) n_row FROM seats_occupation WHERE day = %s")
+                value_to_compare = valore2
+                res = db.select_query(new_day, (value_to_compare,))
+                res = res[0]['n_row']
+                if res != 3:
+
+                    values = [(valore2,1), (valore2,2), (valore2,3)]
+                    new_pren_day = ("INSERT INTO seats_occupation (day, time_slot) VALUES (%s, %s)")
+                    db.execute_query(new_pren_day, values, multi=True)
+            finally:
+                db.disconnect()
+            # Rimuovi il messaggio contenente la tastiera inline
+            await context.bot.delete_message(chat_id=id_user, message_id=query.message.message_id)
+            ##devo convertire valore 2
+            date_in_iso1 = datetime.strptime(valore2, '%Y-%m-%d').strftime('%d-%m-%Y')
+            text= f"D'accordo! La data selezionata è {date_in_iso1} . Rispondi con un qualsiasi carattere per continuare..."
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=text)    
+
+            return TIME_SLOT
+        if valore1 == 'manageTime':
+            context.user_data['time_slot'] = valore2.split('#')[0]
+            context.user_data['id_time_slot'] = valore2.split('#')[1]  
+            text= f'Perfetto! Ci vediamo alle {context.user_data["time_slot"]}! Rispondi con un qualsiasi carattere per continuare...'
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=text) 
+            # Rimuovi il messaggio contenente la tastiera inline
+            await context.bot.delete_message(chat_id=id_user, message_id=query.message.message_id)
+            return CONFIRMATION
+        if valore1 == 'confirmPren':
+            #Logica per inserire la prenotazione nel database
+            try:
+                # Connessione al database
+                db.connect()
+                # Esempio di inserimento dei dati nel database
+                insert_query3 = (
+                    "INSERT INTO prenotazioni (id_user, name, phone, reserved_seats, day, time_slot) "
+                    "VALUES (%s, %s, %s, %s, %s, %s)"
+                )
+                values = (
+                    id_user,
+                    context.user_data['name'],
+                    context.user_data['phone'],
+                    context.user_data['reserved_seats'],
+                    context.user_data['date'],
+                    context.user_data['id_time_slot']
+                )
+
+                db.execute_query(insert_query3, values,multi=False)
+                await update.callback_query.answer(text="Prenotazione confermata! Grazie!")
+                text= "Tutto pronto! Ti aspettiamo.\n\nE ADESSO?!\nHai dato un'occhiata ai nostri eventi? Clicca qui --> /eventi e preparati a divertirti con noi!"
+                await context.bot.send_message(chat_id=update.effective_chat.id, text=text) 
+            finally:
+                db.disconnect()
+
+            
+            await context.bot.delete_message(chat_id=query.message.chat_id, message_id=query.message.message_id)
+            return ConversationHandler.END
+        if valore1 == 'declinePren':
+            await update.callback_query.answer(text="Prenotazione annullata!")
+            text= f"Oh no, hai annullato la procedura di prenotazione :'(\n\nQualcosa è andato storto?\nContattaci pure atttraverso i nostri contatti che troverai qui --> /info\nSaremo felici di accoglierti presto, magari in uno dei nostri /eventi ;)"
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=text) 
+            await context.bot.delete_message(chat_id=id_user, message_id=query.message.message_id)
+            return ConversationHandler.END
+    else:
+        await update.callback_query.answer("Formato non valido.")
+    return BUTTON_HANDLER
