@@ -20,3 +20,13 @@ cmd = [
 url = "https://api.telegram.org/bot"+TOKEN+"/setMyCommands?commands="+str(json.dumps(cmd))
 req = requests.get(url)
 
+
+async def add_commands(app: Application) -> None:
+    cmd = [
+        ("start","avvia il bot"),
+        ("prenota","prenota un tavolo"),
+        ("le_mie_prenotazioni", "visualizza/disdici prenotazione"),
+        ("menu","visualizza il menu"),
+        ("eventi", "visualizza gli special nights events"),
+        ("info", "visualizza le informazioni del ristorante")
+        ]
