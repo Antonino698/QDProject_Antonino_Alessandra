@@ -1,5 +1,7 @@
+from src.lib.lib import *
 
-
+## Funzione di gestione del comando /start.
+# Messaggio di benvenuto e introduzione ai comandi del bot
 async def start_command(update: Update, context: CallbackContext) -> int:
     text = 'Benvenuto nel bot di prenotazione del ristorante Da Tony&Ale.\nUsa:\n/prenota per effettuare una prenotazione\n/le_mie_prenotazioni per visualizzare le tue prenotazioni\n/menu per visualizzare il menu\n/eventi per gli eventi settimanali\n/info per le informazioni sul ristorante.'
     if type(update.message) is type(None):
