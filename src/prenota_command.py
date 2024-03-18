@@ -115,3 +115,21 @@ async def prenota_time_slot(update: Update, context: CallbackContext) -> int:
     await update.message.reply_text('Perfetto! A che ora preferisci?\nScegli una fascia oraria:', reply_markup=reply_markup)
     return BUTTON_HANDLER
 
+async def confirmation(update: Update, context: CallbackContext) -> int:
+    # Simulazione di conferma della prenotazione
+    confirmation_message = (
+        f'Questi sono i dettagli della tua prenotazione:\n'
+        f'Nome: {context.user_data["name"]}\n'
+        f'Telefono: {context.user_data["phone"]}\n'
+        f'Posti prenotati: {context.user_data["reserved_seats"]}\n'
+        f'Giorno: {context.user_data["date"]}\n'
+        f'Ora: {context.user_data["time_slot"]}\n\n'
+        'Confermi la prenotazione?'
+    )
+    
+    keyboard = [[InlineKeyboardButton("Conferma", callback_data=f"confirmPren@confirm"),
+                InlineKeyboardButton("Annulla", callback_data=f"declinePren@cancel")]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text(confirmation_message, reply_markup = reply_markup)
+    
+    return BUTTON_HANDLER
