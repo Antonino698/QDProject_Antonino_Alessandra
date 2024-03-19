@@ -21,4 +21,15 @@ async def test_start_command_with_message(update_context_fixture):
     # Aggiungi qui le asserzioni necessarie per verificare il comportamento atteso
     assert result == ConversationHandler.END 
 
-#aggiungere parte di test query
+@pytest.mark.asyncio
+async def test_start_command_with_callback_query(update_context_fixture):
+    update_mock, context_mock = update_context_fixture
+    # Simula un oggetto Update con una callback query
+   
+    update_mock.message = None
+    update_mock.callback_query.from_user.first_name = 'Mario Rossi'
+
+    result = await start_command(update_mock, context_mock)
+
+    # Aggiungi qui le asserzioni necessarie per verificare il comportamento atteso
+    assert result == ConversationHandler.END  # Modifica questa asserzione in base al tuo caso
