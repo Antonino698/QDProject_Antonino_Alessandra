@@ -53,3 +53,22 @@ async def le_mie_prenotazioni_command(update: Update, context: CallbackContext) 
     finally:
         # Chiudi la connessione al database
         db.disconnect()
+
+
+async def edit_booking(update, context):
+    query= update.callback_query
+    id_user = query.message.chat_id
+    data = query.data
+        
+    # Assume che il campo 'data' abbia la forma 'valore1:valore2'
+    parts = data.split('@')
+    
+    if len(parts) == 2:
+        valore1 = parts[0]
+        valore2 = parts[1]
+
+        # gestisce la risposta in base al 'valore1'
+        if valore1 == 'deleteSinglePren':
+            print('deleteSinglePren')
+
+#aggiungere parti del db mancanti
