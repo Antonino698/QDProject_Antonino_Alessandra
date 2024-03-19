@@ -71,4 +71,53 @@ async def edit_booking(update, context):
         if valore1 == 'deleteSinglePren':
             print('deleteSinglePren')
 
-#aggiungere parti del db mancanti
+            try:
+                db.connect()
+                # selezione poi la spiego
+                canc_pren_row = ("DELETE FROM prenotazioni WHERE prenotazioni.id = %s")
+                id_pren = [int(valore2)]
+                db.execute_query(canc_pren_row, id_pren, multi=False)
+            except Exception as e:
+                Logger.error(str(e))
+                await update.callback_query.answer(text="Si è verificato un errore in deleteSinglePren ")
+            finally:
+                # Chiudi la connessione al database
+                db.disconnect()
+            # Rimuove le prenotazioni e i relativi pulsanti
+            await context.bot.delete_message(chat_id=id_user, message_id=query.message.message_id)
+            text= f"La prenotazione numero {valore2} è stata annullata con successo!\nMa ti rivedremo presto, vero?!😭\n\nNoi ti consigliamo di dare un'occhiata ai nostri STREPITOSI /eventi!! 😎\nTi sta rivenendo voglia di prenotare, ehh?? 😏"
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=text)  
+
+
+        if valore1 == 'deleteAllByUser':
+            print('deleteAllByUser')
+            try:
+                db.connect()
+                # selezione poi la spiego
+                canc_all = ("DELETE FROM prenotazioni WHERE prenotazioni.id_user = %s")
+                id_usr = [str(valore2)]
+                db.execute_query(canc_all, id_usr, multi=False)
+            except Exception as e:
+                Logger.error(str(e))
+                await update.callback_query.answer(text="Si è verificato un errore in deleteAllByUser")
+            finally:
+                # Chiudi la connessione al database
+                db.disconnect()
+            # Rimuove le prenotazioni e i relativi pulsanti
+            await context.bot.delete_message(chat_id=id_user, message_id=query.message.message_id)
+            text="😱OH NO! NEI NOSTRI SISTEMI SEMBRA TU ABBIA CANCELLATO TUTTE LE TUE PRENOTAZIONI🙄...MA NOI AVEVAMO GIA' APPARECCHIATO I TAVOLI!!!😧\n\nNon preoccuparti, potrai sempre fare una nuova prenotazione cliccando qui--> /prenota"
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=text)  
+
+
+        if valore1 == 'reset': 
+            # Puoi aggiungere qui la logica per reimpostare lo stato del tuo bot
+            await start_command(update, context)
+            # context.user_data.clear()  # Resetta i dati dell'utente
+
+        
+        await update.callback_query.answer(text="Operazione eseguita")
+        #await update.message.reply_text("Operazione eseguita")
+        return 
+    else:
+        await update.callback_query.answer("Formato non valido.")
+        
