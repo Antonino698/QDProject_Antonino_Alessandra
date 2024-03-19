@@ -19,4 +19,6 @@ async def test_start_command_with_message(update_context_fixture):
     result = await start_command(update_mock, context_mock)
 
     # Aggiungi qui le asserzioni necessarie per verificare il comportamento atteso
-    assert result == ConversationHandler.END  
+    assert result == ConversationHandler.END 
+
+#aggiungere parte di test query
