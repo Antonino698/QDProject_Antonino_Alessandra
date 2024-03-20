@@ -80,3 +80,66 @@ async def test_le_mie_prenotazioni_command(update_context_fixture):
     await context_mock.bot.send_message()
     expected_text ="In questa sezione potrai visualizzare e/o cancellare le tue prenotazioni.\nEcco l'elenco delle prenotazioni effettuate:\n"
     await context_mock.bot.send_message(text=expected_text)
+
+    
+
+    #
+    
+    #db_mock.execute_query.return_value = None
+
+    # Crea un mock del bot Telegram
+    
+
+    # Chiama la funzione le_mie_prenotazioni_command con i mock delle dipendenze
+    
+    
+
+    # Chiama la funzione le_mie_prenotazioni_command con i mock delle dipendenze
+    """    query_mock.data = "deleteSinglePren" #deleteAllByUser
+    update_mock.callback_query = query_mock
+    update_mock.effective_chat.id = 123
+    context_mock.bot = bot_mock
+    context_mock.user_data = prenotazioni_di_prova
+    
+  
+    
+    # Verifica che la funzione abbia inviato il messaggio corretto
+    await context_mock.bot.send_message()
+    expected_text ="In questa sezione potrai visualizzare e/o cancellare le tue prenotazioni.\nEcco l'elenco delle prenotazioni effettuate:\n"
+    await context_mock.bot.send_message(text=expected_text) """
+    
+
+    # Verifica che la funzione abbia inviato il messaggio corretto per ogni prenotazione
+    """    bot_mock.send_message.assert_any_call(
+        chat_id=update_mock.effective_chat.id,
+        text=(
+            f'ID_PRENOTAZIONE: {context_mock.user_data[0]["id"]}\n'
+            f'Nome: {context_mock.user_data[0]["name"]}\n'
+            f'Telefono: {context_mock.user_data[0]["phone"]}\n'
+            f'Posti prenotati: {context_mock.user_data[0]["reserved_seats"]}\n'
+            f'Giorno: {datetime.strptime(str(context_mock.user_data[0]["day"]), "%Y-%m-%d").strftime("%d-%m-%Y")}\n'
+            f'Ora: {context_mock.user_data[0]["time_slot"]}\n\n'
+        )
+    )"""
+
+ 
+
+    """
+    bot_mock.send_message.assert_any_call(
+        chat_id=update_mock.effective_chat.id,
+        text=(
+            f'ID_PRENOTAZIONE: {context_mock.user_data[1]["id"]}\n'
+            f'Nome: {context_mock.user_data[1]["name"]}\n'
+            f'Telefono: {context_mock.user_data[1]["phone"]}\n'
+            f'Posti prenotati: {context_mock.user_data[1]["reserved_seats"]}\n'
+            f'Giorno: {datetime.strptime(str(context_mock.user_data[1]["day"]), "%Y-%m-%d").strftime("%d-%m-%Y")}\n'
+            f'Ora: {context_mock.user_data[1]["time_slot"]}\n\n'
+        )
+    )
+
+    # Verifica che la funzione abbia inviato la tastiera corretta
+    bot_mock.send_message.assert_called_with(
+        chat_id=update_mock.effective_chat.id,
+        text="Bene, queste sono le tue prenotazioni!\nCosa vuoi fare adesso?",
+        reply_markup=AsyncMock()
+    )"""
