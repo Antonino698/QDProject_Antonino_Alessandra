@@ -36,4 +36,5 @@ jobs:
 
       - name: Test with pytest
         run: |
+          pip install pytest pytest-cov  # Assicurati che pytest sia installato
           pytest --cov src /home/runner/work/RistoBOT/RistoBOT/test/
