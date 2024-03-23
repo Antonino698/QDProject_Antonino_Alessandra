@@ -32,9 +32,9 @@ jobs:
 
       - name: Analysing the code with pylint
         run: |
-          pylint $(git ls-files '*.py') || true  # Aggiunto "|| true" per evitare errori non fatali
+          pylint $(git ls-files '*.py')
 
       - name: Test with pytest
         run: |
-          pip install pytest pytest-cov  # Assicurati che pytest sia installato
-          pytest --cov src /home/runner/work/RistoBOT/RistoBOT/test/
+          pip install pytest
+          pytest --cov src test/
