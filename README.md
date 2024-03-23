@@ -75,7 +75,7 @@ In programma abbiamo l’implementazione di nuove feature come ad esempio:
 
 
 **Panoramica dei comandi del bot**
-![](1.jpeg)![](2.jpeg)![](3.jpeg)![](4.jpeg)![](5.jpeg)![](6.jpeg)![](7.jpeg)![](8.jpeg)![](9.jpeg)![](10.jpeg)
+![](images/1.jpeg)![](images/2.jpeg)![](images/3.jpeg)![](images/4.jpeg)![](images/5.jpeg)![](images/6.jpeg)![](images/7.jpeg)![](images/8.jpeg)![](images/9.jpeg)![](images/10.jpeg)
 
 **Dipendenze del progetto**
 
