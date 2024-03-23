@@ -74,43 +74,8 @@ In programma abbiamo l’implementazione di nuove feature come ad esempio:
 
 
 
-![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.002.png)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.003.jpeg)**Panoramica dei comandi del bot**
-
-
-
-
-
-
-
-
-
-
-
-![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.004.png)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.005.jpeg)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.006.png)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.007.jpeg)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.008.png)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.009.jpeg)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.010.png)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.011.jpeg)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.012.png)![Immagine che contiene testo, schermata, design
-
-Descrizione generata automaticamente](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.013.jpeg)
-
-
-
-
-
-
-
-![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.014.png)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.015.jpeg)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.016.png)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.017.jpeg)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.018.png)![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.019.jpeg)
-
-
-
-![](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.020.png)![Immagine che contiene testo, elettronica, schermata, software
-
-Descrizione generata automaticamente](Aspose.Words.ce1063cd-fa21-4d3a-a8cc-5a62a55fa147.021.jpeg)
-
-
-
-
-
-
-
-
+**Panoramica dei comandi del bot**
+![](1.jpeg)![](2.jpeg)![](3.jpeg)![](4.jpeg)![](5.jpeg)![](6.jpeg)![](7.jpeg)![](8.jpeg)![](9.jpeg)![](10.jpeg)
 
 **Dipendenze del progetto**
 
