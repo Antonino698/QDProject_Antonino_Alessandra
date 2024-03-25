@@ -1,9 +1,22 @@
+"""
+LIB GENERIC
+"""
+# pylint: disable=R0914
+# pylint: disable=E1120
+# pylint: disable=W0401
+# pylint: disable=W0611
+# pylint: disable=W0612
+# pylint: disable=W0613
+# pylint: disable=W0614
+# pylint: disable=W0718
 import os
-from telegram import Bot, Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application,Updater, CommandHandler, MessageHandler, filters, ConversationHandler, CallbackContext, CallbackQueryHandler, ContextTypes
-from datetime import datetime, timedelta
-
 from logging import Logger
+from datetime import datetime, timedelta
+from telegram import Bot, Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application,Updater, CommandHandler, MessageHandler
+from telegram.ext import filters, ConversationHandler
+from telegram.ext import CallbackContext, CallbackQueryHandler, ContextTypes
+
 from src.lib.mysql_class import *
 db = MySQLDatabase()
 # Definizione degli stati

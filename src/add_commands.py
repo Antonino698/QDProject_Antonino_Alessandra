@@ -16,16 +16,14 @@ from src.lib.config import BOT_CONFIG
 
 TOKEN: Final = BOT_CONFIG['__TOKEN']
 
-BTN = [
+URL = "https://api.telegram.org/bot"+TOKEN+"/setMyCommands?commands="+str(json.dumps([
         {"command":"start","description":"avvia il bot"},
         {"command":"prenota","description":"prenota un tavolo"},
         {"command":"le_mie_prenotazioni","description":"visualizza/disdici prenotazione"},
         {"command":"menu","description":"visualizza il menu"},
         {"command":"eventi","description":"visualizza gli special nights events"},
         {"command":"info","description":"visualizza le informazioni del ristorante"}
-    ]
-
-URL = "https://api.telegram.org/bot"+TOKEN+"/setMyCommands?commands="+str(json.dumps(BTN))
+    ]))
 
 req = requests.get(URL, timeout=30)
 
@@ -41,4 +39,3 @@ async def add_commands(app: Application) -> None:
         ("eventi", "visualizza gli special nights events"),
         ("info", "visualizza le informazioni del ristorante")
         ]
-    return cmd
