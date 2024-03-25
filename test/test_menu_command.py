@@ -1,20 +1,31 @@
+"""
+TEST Menu Command
+"""
+#pylint: disable=W0621
 import os
+from unittest.mock import AsyncMock, ANY # patch
 from io import BytesIO
-from PIL import Image
 import pytest
-from src.lib.lib import *
-from unittest.mock import AsyncMock, patch, ANY
+
+from PIL import Image
+#from src.lib.lib import *
 from src.menu_command import menu_command
 
 @pytest.fixture
 def update_context_fixture():
+    """
+    fixture
+    """
     update_mock = AsyncMock()
     context_mock = AsyncMock()
-    
+
     return update_mock, context_mock
 
 @pytest.mark.asyncio
 async def test_menu_command(update_context_fixture):
+    """
+    Menu Command Mock
+    """
     update_mock, context_mock = update_context_fixture
     # ARRANGE: Prepara lo stato iniziale e ottieni il percorso dell'immagine
     image_path = os.path.join("src", "media", "Menu.jpg")
@@ -25,7 +36,7 @@ async def test_menu_command(update_context_fixture):
         image = Image.open(BytesIO(image_data))
 
         await menu_command(update_mock, context_mock)
-        
+
     # ASSERT: Verifica che l'asserzione sia valida
     await context_mock.bot.send_message()
     expected_text = "Ecco il nostro menu:"
