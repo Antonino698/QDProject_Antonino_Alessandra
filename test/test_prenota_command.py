@@ -148,22 +148,12 @@ async def test_prenota_day(update_context_fixture):
         for button in button_row:
             assert button.callback_data.startswith("manageDate@")
     assert result == BUTTON_HANDLER  # Assuming BUTTON_HANDLER is the next step
-
-
-# Mocking the database connection
-# @pytest.fixture
-
-# @patch('src.lib.MySQLclass.MySQLDatabase.connect')
-# @patch('src.lib.MySQLclass.MySQLDatabase.disconnect')
-# @patch('src.lib.MySQLclass.MySQLDatabase.select_query', new_callable=AsyncMock)
 @pytest.mark.asyncio
 async def test_prenota_time_slot(update_context_fixture):
     update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
-    # Mocking context.user_data
 
     context_mock.user_data = {"reserved_seats": 5, "date": "2024-01-20"}
 
-    # Mocking the response from the database
     res_mock = [
         {"time_slot": "20:00", "id_time_slot": 1},
         {"time_slot": "21:00", "id_time_slot": 2},
@@ -173,13 +163,9 @@ async def test_prenota_time_slot(update_context_fixture):
     
     # Call the function
     result = prenota_time_slot(update_mock, context_mock)
-    #status = 0
     RES = await result
-    #assert  await result == BUTTON_HANDLER
     if (RES == 3):
         assert  RES == DAY
-    # elif (RES == 0):
-    #     assert  RES == BUTTON_HANDLER
 
 
 @pytest.mark.asyncio
@@ -299,22 +285,4 @@ async def test_button_click_decline(update_context_fixture):
     await context_mock.bot.send_message(text=expected_text)   
 
     assert result == 6
-
-# @pytest.mark.asyncio
-# async def test_button_click_exception_handling(update_context_fixture):
-#     update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
-
-#     # Assegnazione del mock di callback_query all'oggetto update
-#     update_mock.callback_query = query_mock
-
-#     # Simula il lancio di un'eccezione durante l'esecuzione di button_click
-#     with patch('Logger.error') as mock_logger_error:
-#         with patch('update_mock.callback_query.answer') as mock_answer:
-#             # Chiamata alla funzione button_click con l'eccezione simulata
-#             await button_click(update_mock)
-
-#     # Verifica che Logger.error sia stato chiamato con l'argomento corretto
-#     mock_logger_error.assert_called_once_with(AsyncMock(), exc_info=True)
-
-#     # Verifica che update.callback_query.answer sia stato chiamato con il testo corretto
-#     mock_answer.assert_awaited_once_with(text="Si è verificato un errore button_click valore1=1.")
+    

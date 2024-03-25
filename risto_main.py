@@ -1,6 +1,9 @@
+"""
+Main del progetto.
+"""
 from typing import Final
+from warnings import filterwarnings
 from src.lib.config import *
-
 #import command_functions
 from src.start_command import *
 from src.menu_command import *
@@ -11,14 +14,16 @@ from src.le_mie_prenotazioni_command import *
 
 from src.add_commands import add_commands
 
-from warnings import filterwarnings
+
 from telegram.warnings import PTBUserWarning
 
 filterwarnings(action="ignore", message=r".*CallbackQueryHandler", category=PTBUserWarning)
 
 TOKEN: Final = BOT_CONFIG['__TOKEN']
 
-#Impostazione del ConversationHandler con i 6 stati: NAME, PHONE, RESERVED_SEATS, DAY, TIME_SLOT, CONFIRMATION, BUTTON_HANDLER
+#Impostazione del ConversationHandler con i 6 stati:
+
+#NAME, PHONE, RESERVED_SEATS, DAY, TIME_SLOT, CONFIRMATION, BUTTON_HANDLER
 conv_handler = ConversationHandler(
     entry_points=[CommandHandler('prenota', prenota_start)],
     states={
@@ -51,8 +56,5 @@ app.add_handler(CommandHandler("info", info_command))
 app.add_handler(conv_handler)
 app.add_handler(CallbackQueryHandler(edit_booking))
 
-
 # Avvio dell'applicazione
 app.run_polling()
-
-#add_commands(app)
