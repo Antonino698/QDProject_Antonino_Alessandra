@@ -1,15 +1,22 @@
-"""Add commands handler"""
-from telegram.ext import Application
-
-import requests
+"""
+add runtime command
+"""
+# pylint: disable=R0914
+# pylint: disable=E1120
+# pylint: disable=W0401
+# pylint: disable=W0612
+# pylint: disable=W0613
+# pylint: disable=W0614
+# pylint: disable=W0718
 import json
-
 from typing import Final
+from telegram.ext import Application
+import requests
 from src.lib.config import BOT_CONFIG
+
 TOKEN: Final = BOT_CONFIG['__TOKEN']
 
-
-cmd = [
+BTN = [
         {"command":"start","description":"avvia il bot"},
         {"command":"prenota","description":"prenota un tavolo"},
         {"command":"le_mie_prenotazioni","description":"visualizza/disdici prenotazione"},
@@ -17,11 +24,15 @@ cmd = [
         {"command":"eventi","description":"visualizza gli special nights events"},
         {"command":"info","description":"visualizza le informazioni del ristorante"}
     ]
-URL = "https://api.telegram.org/bot"+TOKEN+"/setMyCommands?commands="+str(json.dumps(cmd))
-req = requests.get(URL)
 
+URL = "https://api.telegram.org/bot"+TOKEN+"/setMyCommands?commands="+str(json.dumps(BTN))
+
+req = requests.get(URL, timeout=30)
 
 async def add_commands(app: Application) -> None:
+    """
+    add runtime command
+    """
     cmd = [
         ("start","avvia il bot"),
         ("prenota","prenota un tavolo"),
@@ -30,3 +41,4 @@ async def add_commands(app: Application) -> None:
         ("eventi", "visualizza gli special nights events"),
         ("info", "visualizza le informazioni del ristorante")
         ]
+    return cmd
