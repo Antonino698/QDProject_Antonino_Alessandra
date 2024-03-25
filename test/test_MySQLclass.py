@@ -1,7 +1,7 @@
 import os
 import pytest
 from unittest.mock import AsyncMock, patch
-from src.lib.MySQLclass import MySQLDatabase
+from src.lib.mysql_class import MySQLDatabase
 
 @pytest.fixture
 def mock_mysql_db():

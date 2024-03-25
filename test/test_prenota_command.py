@@ -2,7 +2,7 @@ import pytest
 #from unittest import mock
 import asyncio
 from src.lib.lib import *
-from src.lib.MySQLclass import MySQLDatabase
+from src.lib.mysql_class import MySQLDatabase
 from unittest.mock import AsyncMock, MagicMock, patch, ANY
 from src.prenota_command import (
     prenota_start,

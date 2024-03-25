@@ -4,7 +4,7 @@ from telegram.ext import Application,Updater, CommandHandler, MessageHandler, fi
 from datetime import datetime, timedelta
 
 from logging import Logger
-from src.lib.MySQLclass import *
+from src.lib.mysql_class import *
 db = MySQLDatabase()
 # Definizione degli stati
 NAME, PHONE, RESERVED_SEATS, DAY, TIME_SLOT, CONFIRMATION, BUTTON_HANDLER = range(7)

@@ -22,7 +22,7 @@ async def start_command(update: Update, context: CallbackContext) -> int:
             "menu per visualizzare il menu\n"
             "/eventi per gli eventi settimanali\n"
             "/info per le informazioni sul ristorante.")
-    if isinstance(update.message) is isinstance(None):
+    if  isinstance(update.message, type(None)):
         user = update.callback_query.from_user
         pre_text = f'Ciao {user.first_name}!\n{text}'
         await context.bot.send_message(chat_id=update.effective_chat.id, text=pre_text)

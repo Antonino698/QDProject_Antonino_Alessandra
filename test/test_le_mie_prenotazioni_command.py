@@ -3,7 +3,7 @@ import pytest
 from src.lib.lib import *
 from unittest.mock import AsyncMock, patch, ANY, MagicMock
 from src.le_mie_prenotazioni_command import *
-from src.lib.MySQLclass import MySQLDatabase
+from src.lib.mysql_class import MySQLDatabase
 
 from src.start_command import * #MBARE NON LO USI gemini
 @pytest.fixture
