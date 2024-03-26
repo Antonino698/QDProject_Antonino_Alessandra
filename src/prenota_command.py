@@ -8,7 +8,7 @@ Modulo prenotazione
 # pylint: disable=W0613
 # pylint: disable=W0614
 # pylint: disable=W0718
-
+# pylint: disable=R0801
 from src.lib.lib import *
 
 # Dizionario di traduzione dei giorni della settimana in italiano

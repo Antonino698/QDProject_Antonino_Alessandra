@@ -11,23 +11,9 @@ modulo eventi ristorante
 # pylint: disable=W0614
 # pylint: disable=W0621
 # pylint: disable=W0718
-import os
-from io import BytesIO
-from unittest.mock import AsyncMock, patch, ANY
-from PIL import Image
-import pytest
-from src.lib.lib import *
+# pylint: disable=R0801
+from test.fixture import *
 from src.eventi_command import eventi_command
-
-@pytest.fixture
-def update_context_fixture():
-    """
-    fixture
-    """
-    update_mock = AsyncMock()
-    context_mock = AsyncMock()
-    return update_mock, context_mock
-
 @pytest.mark.asyncio
 async def test_eventi_command(update_context_fixture):
     """

@@ -8,6 +8,7 @@ View personal booking
 # pylint: disable=W0613
 # pylint: disable=W0614
 # pylint: disable=W0718
+# pylint: disable=R0801
 from src.lib.lib import *
 from src.start_command import *
 

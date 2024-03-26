@@ -11,20 +11,9 @@ modulo le mie prenotazioni command
 # pylint: disable=W0614
 # pylint: disable=W0621
 # pylint: disable=W0718
-from unittest.mock import AsyncMock,patch, ANY
-import pytest
-from src.lib.lib import *
+# pylint: disable=R0801
+from test.fixture import *
 from src.info_command import info_command
-
-@pytest.fixture
-def update_context_fixture():
-    """
-    fixture
-    """
-    update_mock = AsyncMock()
-    context_mock = AsyncMock()
-    return update_mock, context_mock
-
 @pytest.mark.asyncio
 async def test_info_command(update_context_fixture):
     """

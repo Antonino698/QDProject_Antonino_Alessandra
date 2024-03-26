@@ -2,7 +2,8 @@
 modulo start command
 """
 # pylint: disable=R0914
-# pylint: disable=E1120
+# pylint: disable=W0104
+# pylint: disable=W0401
 # pylint: disable=W0401
 # pylint: disable=W0611
 # pylint: disable=W0612
@@ -11,20 +12,8 @@ modulo start command
 # pylint: disable=W0621
 # pylint: disable=W0718
 # pylint: disable=R0801
-from unittest.mock import AsyncMock,patch, ANY
-import pytest
-from src.lib.lib import *
+from test.fixture import *
 from src.start_command import start_command
-
-@pytest.fixture
-def update_context_fixture():
-    """
-    fixture
-    """
-    update_mock = AsyncMock()
-    context_mock = AsyncMock()
-    return update_mock, context_mock
-
 @pytest.mark.asyncio
 async def test_start_command_with_message(update_context_fixture):
     """
