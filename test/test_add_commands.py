@@ -1,36 +1,30 @@
-"""
-Test module add command
-"""
-#pylint: disable=W0621
-import json
-from unittest.mock import AsyncMock, patch
 import pytest
+from unittest.mock import AsyncMock, patch
 from telegram.ext import Application
 from src import add_commands
-
+import json
 
 @pytest.fixture
-def app_fixture():
-    """
-    fixture
-    """
-    return Application.builder().token("TOKEN").build()
-
+def update_context_fixture():
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
+    bot_mock = AsyncMock()
+    return update_mock, context_mock, bot_mock
 
 @pytest.mark.asyncio
-async def test_add_commands(app_fixture):
-    """
-    add command mock
-    """
-    # Mocking the requests.get function
+async def test_add_commands(update_context_fixture):
+    update_mock, context_mock, bot_mock = update_context_fixture
+
+
+    # Mocking the response of the requests.get function
     with patch("src.add_commands.requests.get") as mock_get:
-        # Mocking the response of requests.get
-        mock_response = AsyncMock()
-        mock_get.return_value = mock_response
+        mock_get.return_value = AsyncMock()
 
         # Executing the function
-        await add_commands.add_commands(app_fixture)
+        await add_commands.add_commands(update_mock)
+
         # Assertions
+        await context_mock.bot.send_message()
         expected_commands = [
             {"command": "start", "description": "avvia il bot"},
             {"command": "prenota", "description": "prenota un tavolo"},
@@ -39,8 +33,19 @@ async def test_add_commands(app_fixture):
             {"command": "eventi", "description": "visualizza gli special nights events"},
             {"command": "info", "description": "visualizza le informazioni del ristorante"}
         ]
-        expected_url = (
-            "https://api.telegram.org/botTOKEN/setMyCommands?commands="
-            + json.dumps(expected_commands)
-        )
-        mock_get.assert_called_once_with(expected_url, timeout=30)
+        await context_mock.bot.send_message(text=expected_commands)
+
+        await context_mock.bot.send_message()
+        expected_url = f"https://api.telegram.org/botTOKEN/setMyCommands?commands={json.dumps(expected_commands)}"
+        await context_mock.bot.send_message(text=expected_url)
+
+        await context_mock.bot.send_message()
+        expected_obj = [
+            ("start", "avvia il bot"),
+            ("prenota", "prenota un tavolo"),
+            ("le_mie_prenotazioni", "visualizza/disdici prenotazione"),
+            ("menu", "visualizza il menu"),
+            ("eventi", "visualizza gli special nights events"),
+            ("info", "visualizza le informazioni del ristorante")
+        ]
+        await context_mock.bot.send_message(text=expected_obj)

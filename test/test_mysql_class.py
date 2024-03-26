@@ -18,7 +18,7 @@ async def test_read_config_exists(mock_mysql_db):
 
 async def test_read_config_not_exists():
     nonexistent_path = os.path.join('nonexistent', 'config.py')
-    with patch('src.lib.MySQLclass.MySQLDatabase') as mock_db_class:
+    with patch('src.lib.mysql_class.MySQLDatabase') as mock_db_class:
         mock_db_instance = mock_db_class.return_value
         mock_db_instance.read_config.side_effect = FileNotFoundError
         with pytest.raises(Exception, match="File di configurazione non trovato."):

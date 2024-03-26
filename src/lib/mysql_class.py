@@ -39,7 +39,6 @@ class MySQLDatabase:
         """
         config = self.read_config()
         self.connection = mysql.connector.connect(**config)
-        print("Connessione al database avvenuta con successo.")
 
     def disconnect(self):
         """
@@ -47,7 +46,6 @@ class MySQLDatabase:
         """
         if self.connection:
             self.connection.close()
-            print("Connessione al database chiusa.")
 
     def execute_query(self, query, values=None, multi=False):
         """
@@ -69,7 +67,6 @@ class MySQLDatabase:
         try:
             cursor.execute(query, values)
             result = cursor.fetchall()
-            print("Query eseguita con successo.")
             return result
         finally:
             cursor.close()
