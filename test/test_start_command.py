@@ -10,6 +10,7 @@ modulo start command
 # pylint: disable=W0614
 # pylint: disable=W0621
 # pylint: disable=W0718
+# pylint: disable=R0801
 from unittest.mock import AsyncMock,patch, ANY
 import pytest
 from src.lib.lib import *
