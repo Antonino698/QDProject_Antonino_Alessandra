@@ -1,5 +1,5 @@
 """
-Classe DB MySQL
+MYSQL CLASS
 """
 # pylint: disable=R0914
 # pylint: disable=E1120
@@ -10,63 +10,74 @@ Classe DB MySQL
 # pylint: disable=W0718
 import mysql.connector
 from src.lib.config import DB_CONFIG
+
 class MySQLDatabase:
     """
-    Classe DB MySQL
+    Class Methods
     """
-    def __init__(self):
+    def __init__(self,data = None):
         """
-        Classe DB MySQL
+        Costruttore
         """
         self.connection = None
-
+        self.config = data
     def read_config(self):
         """
-        Metodo
+        Lettura da file config
         """
-        try:
-            config = DB_CONFIG
-            if not config:
-                raise ValueError("Configurazione non valida: il dizionario "
-                                 "è vuoto o non è stato correttamente inizializzato")
+        config = DB_CONFIG
+        if config:
             return config
-        except ValueError as exc:
-            raise ValueError(f"Errore nella configurazione: {format(exc)}") from exc
-
+        print("Configurazione non valida: il dizionario è"
+                "vuoto o non è stato correttamente inizializzato")
+        return None
     def connect(self):
         """
-        Metodo
+        connessione
         """
         config = self.read_config()
-        self.connection = mysql.connector.connect(**config)
+        if config:
+            try:
+                self.connection = mysql.connector.connect(**config)
+            except mysql.connector.Error as err:
+                print("Errore durante la connessione al database:", err)
 
     def disconnect(self):
         """
-        Metodo
+        disconnessione
         """
         if self.connection:
             self.connection.close()
 
+
     def execute_query(self, query, values=None, multi=False):
         """
-        Metodo
+        Query executor
         """
         cursor = self.connection.cursor()
-        if multi:
-            cursor.executemany(query, values)
-        else:
-            cursor.execute(query, values)
-            self.connection.commit()
-        cursor.close()
+        try:
+            if multi:
+                cursor.executemany(query, values)
+            else:
+                cursor.execute(query, values)
+                self.connection.commit()
+        except mysql.connector.Error as err:
+            print("Errore durante l'esecuzione della query:", err)
+        finally:
+            cursor.close()
 
     def select_query(self, query, values=None):
         """
-        Metodo
+        Query selector
         """
+        result = []
         cursor = self.connection.cursor(dictionary=True)
         try:
             cursor.execute(query, values)
             result = cursor.fetchall()
             return result
+        except mysql.connector.Error as err:
+            print("Errore durante l'esecuzione della query di selezione:", err)
         finally:
             cursor.close()
+        return []

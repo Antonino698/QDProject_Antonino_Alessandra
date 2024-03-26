@@ -13,7 +13,6 @@ from telegram import Update
 from telegram.ext import CallbackContext
 from src.lib.lib import *
 
-
 async def menu_command(update: Update, context: CallbackContext,
                        bot: Any = None) -> None:
     """

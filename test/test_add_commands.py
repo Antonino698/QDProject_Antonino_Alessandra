@@ -1,19 +1,34 @@
-import pytest
-from unittest.mock import AsyncMock, patch
-from telegram.ext import Application
-from src import add_commands
+""""
+add commands test module
+"""
+# pylint: disable=R0914
+# pylint: disable=E1120
+# pylint: disable=W0401
+# pylint: disable=W0612
+# pylint: disable=W0613
+# pylint: disable=W0614
+# pylint: disable=W0621
+# pylint: disable=W0718
 import json
+from unittest.mock import AsyncMock, patch
+import pytest
+from src import add_commands
 
 @pytest.fixture
 def update_context_fixture():
+    """"
+    fixture
+    """
     update_mock = AsyncMock()
     context_mock = AsyncMock()
-    bot_mock = AsyncMock()
-    return update_mock, context_mock, bot_mock
+    return update_mock, context_mock
 
 @pytest.mark.asyncio
 async def test_add_commands(update_context_fixture):
-    update_mock, context_mock, bot_mock = update_context_fixture
+    """"
+    metodo
+    """
+    update_mock, context_mock = update_context_fixture
 
 
     # Mocking the response of the requests.get function
@@ -36,7 +51,10 @@ async def test_add_commands(update_context_fixture):
         await context_mock.bot.send_message(text=expected_commands)
 
         await context_mock.bot.send_message()
-        expected_url = f"https://api.telegram.org/botTOKEN/setMyCommands?commands={json.dumps(expected_commands)}"
+        expected_url = (
+            f"https://api.telegram.org/botTOKEN/setMyCommands?commands={
+                json.dumps(expected_commands)
+                }")
         await context_mock.bot.send_message(text=expected_url)
 
         await context_mock.bot.send_message()
