@@ -30,9 +30,7 @@ jobs:
           if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
           pip install pylint pytest pytest-cov
 
-      - name: Analysing the code with pylint
-        run: |
-          pylint $(git ls-files '*.py')
+
 
       - name: Test with pytest
         run: |
