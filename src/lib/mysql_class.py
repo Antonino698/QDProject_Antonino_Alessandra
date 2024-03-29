@@ -1,16 +1,7 @@
 """
 MYSQL CLASS
 """
-# pylint: disable=R0914
-# pylint: disable=W0104
-# pylint: disable=W0401
-# pylint: disable=W0401
-# pylint: disable=W0611
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0621
-# pylint: disable=W0718
+
 import mysql.connector
 from src.lib.config import DB_CONFIG
 
@@ -54,7 +45,8 @@ class MySQLDatabase:
             cursor.executemany(query, values)
         else:
             cursor.execute(query, values)
-            self.connection.commit()
+
+        self.connection.commit()
         cursor.close()
 
     def select_query(self, query, values=None):

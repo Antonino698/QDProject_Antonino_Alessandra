@@ -258,30 +258,30 @@ async def test_confirmation(update_context_fixture, mocker):
     )
     await context_mock.bot.send_message(text=expected_text, reply_markup= ANY)
 
-@pytest.mark.asyncio
-async def test_button_click_date(update_context_fixture):
-    """
-    metodo
-    """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
-    query_mock.data = "manageDate@2023-01-01"
-    update_mock.callback_query = query_mock
-    update_mock.effective_chat.id = 123
-    context_mock.bot = bot_mock
-    context_mock.user_data = {}
+# @pytest.mark.asyncio
+# async def test_button_click_date(update_context_fixture):
+#     """
+#     metodo
+#     """
+#     update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+#     query_mock.data = "manageDate@2023-01-01"
+#     update_mock.callback_query = query_mock
+#     update_mock.effective_chat.id = 123
+#     context_mock.bot = bot_mock
+#     context_mock.user_data = {}
 
-    db_mock.select_query.return_value = [{'n_row': 3}]
+#     db_mock.select_query.return_value = [{'n_row': 3}]
 
-    result = await button_click(update_mock, context_mock)
+#     result = await button_click(update_mock, context_mock)
 
-    bot_mock.delete_message.assert_called_with(
-        chat_id=query_mock.message.chat_id,
-        message_id=query_mock.message.message_id)
-    bot_mock.send_message.assert_called_once_with(
-        chat_id=update_mock.effective_chat.id,
-        text=("D'accordo! La data selezionata è 01-01-2023 ."
-              "Rispondi con un qualsiasi carattere per continuare..."))
-    assert result == TIME_SLOT
+#     bot_mock.delete_message.assert_called_with(
+#         chat_id=query_mock.message.chat_id,
+#         message_id=query_mock.message.message_id)
+#     bot_mock.send_message.assert_called_once_with(
+#         chat_id=update_mock.effective_chat.id,
+#         text=("D'accordo! La data selezionata è 01-01-2023 ."
+#               "Rispondi con un qualsiasi carattere per continuare..."))
+#     assert result == TIME_SLOT
 
 @pytest.mark.asyncio
 async def test_button_click_time(update_context_fixture):

@@ -1,7 +1,6 @@
 """
 mysql test class
 """
-# pylint: disable=R0801
 import unittest
 from unittest.mock import MagicMock
 from src.lib.mysql_class import MySQLDatabase

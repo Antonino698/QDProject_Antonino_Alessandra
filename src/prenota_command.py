@@ -1,15 +1,13 @@
 """
 Modulo prenotazione
 """
-# pylint: disable=R0914
-# pylint: disable=E1120
-# pylint: disable=W0401
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0718
-# pylint: disable=R0801
-from src.lib.lib import *
+from src.lib.lib import Update, CallbackContext
+from src.lib.lib import NAME, PHONE, RESERVED_SEATS
+from src.lib.lib import DAY, TIME_SLOT, CONFIRMATION, BUTTON_HANDLER
+from src.lib.lib import datetime, timedelta
+from src.lib.lib import InlineKeyboardButton, InlineKeyboardMarkup
+from src.lib.lib import ConversationHandler
+from src.lib.lib import db
 
 # Dizionario di traduzione dei giorni della settimana in italiano
 italian_day = {
@@ -54,6 +52,7 @@ async def prenota_start(update: Update, context: CallbackContext) -> int:
     """
     Prompt Nome
     """
+    context.user_data['stat'] = ""
     await update.message.reply_text("Per effettuare la prenotazione "
         "mi servono alcune informazioni. Inserisci il nome per la prenotazione:")
     return NAME
@@ -108,6 +107,7 @@ async def prenota_day(update: Update, context: CallbackContext) -> int:
     """
     Prompt Giorno
     """
+    context.user_data['stat'] = ""
     #Mostra i pulsanti per selezionare una data nel formato "giorno, mese, anno"
     current_date = datetime.now()
     keyboard = []
@@ -121,7 +121,6 @@ async def prenota_day(update: Update, context: CallbackContext) -> int:
         # Converti la data nel formato "anno-mese-giorno"
         date_in_iso = date.strftime('%Y-%m-%d')
         giorni.append(date_in_iso)
-        date_in_iso1 = datetime.strptime(            date_in_iso, '%Y-%m-%d').strftime('%d-%m-%Y')
         date_again = f"manageDate@{date_in_iso}"
         keyboard.append([InlineKeyboardButton(formatted_date, callback_data=date_again)])
 
@@ -214,8 +213,7 @@ async def button_click(update: Update, context: CallbackContext) -> int:
                 # selezione poi la spiego
                 new_day = ("SELECT count(*) n_row FROM seats_occupation"
                            " WHERE day = %s")
-                value_to_compare = valore2
-                res = db.select_query(new_day, (value_to_compare,))
+                res = db.select_query(new_day, (valore2,))
                 res = res[0]['n_row']
                 if res != 3:
 

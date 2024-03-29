@@ -1,17 +1,15 @@
 """
 View personal booking
+Inseriti i disable per gestire la parte
+del modulo logger nei try-catch except
 """
-# pylint: disable=R0914
-# pylint: disable=E1120
-# pylint: disable=W0401
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0718
-# pylint: disable=R0801
-from src.lib.lib import *
-from src.start_command import *
-
+#pylint: disable=W0718
+#pylint: disable=E1120
+from src.lib.lib import db, datetime, BUTTON_HANDLER
+from src.lib.lib import InlineKeyboardButton, InlineKeyboardMarkup
+from src.lib.lib import Logger
+from src.lib.mysql_class import mysql
+from src.start_command import Update, CallbackContext, start_command
 async def le_mie_prenotazioni_command(update: Update, context: CallbackContext) -> int:
     """
     View personal booking
@@ -71,8 +69,11 @@ async def le_mie_prenotazioni_command(update: Update, context: CallbackContext) 
             await context.bot.send_message(chat_id=update.effective_chat.id,
                         text=prenotazioni_message)
 
-        msg = "Bene, queste sono le tue prenotazioni!\nCosa vuoi fare adesso?"
-        await update.message.reply_text(msg, reply_markup=reply_markup)
+        # msg = "Bene, queste sono le tue prenotazioni!\nCosa vuoi fare adesso?"
+        await update.message.reply_text(
+            "Bene, queste sono le tue prenotazioni!\nCosa vuoi fare adesso?",
+            reply_markup=reply_markup
+        )
         return BUTTON_HANDLER
     finally:
         # Chiudi la connessione al database
@@ -87,18 +88,17 @@ async def edit_booking(update, context):
     id_user = query.message.chat_id
     data = query.data
     # Assume che il campo 'data' abbia la forma 'valore1:valore2'
-    parts = data.split('@')
+    #parts = data.split('@')
 
-    if len(parts) == 2:
-        valore1 = parts[0]
-        valore2 = parts[1]
+    if len( data.split('@')) == 2:
+        valore1 =  data.split('@')[0]
+        valore2 =  data.split('@')[1]
         # gestisce la risposta in base al 'valore1'
         if valore1 == 'deleteSinglePren':
             print('deleteSinglePren')
 
             try:
                 db.connect()
-                # selezione poi la spiego
                 canc_pren_row = "DELETE FROM prenotazioni WHERE prenotazioni.id = %s"
                 id_pren = [int(valore2)]
                 db.execute_query(canc_pren_row, id_pren, multi=False)

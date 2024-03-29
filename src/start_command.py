@@ -1,14 +1,8 @@
 """
 Modulo START
 """
-# pylint: disable=R0914
-# pylint: disable=E1120
-# pylint: disable=W0401
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0718
-from src.lib.lib import *
+
+from src.lib.lib import ConversationHandler,Update,CallbackContext
 
 ## Funzione di gestione del comando /start.
 # Messaggio di benvenuto e introduzione ai comandi del bot

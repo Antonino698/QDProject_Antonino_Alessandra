@@ -1,14 +1,8 @@
 """
 View restaurant info
 """
-# pylint: disable=R0914
-# pylint: disable=E1120
-# pylint: disable=W0401
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0718
-from src.lib.lib import *
+
+from src.lib.lib import Update, ContextTypes
 
 # Funzione di gestione del comando /info
 # Mostra le informazioni generali del ristorante, quali:
@@ -17,6 +11,7 @@ async def info_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
     View restaurant info
     """
+    context.user_data['stat'] = ""
     phone_number = "+391234567890"
     map_url = "https://www.google.com/maps?q=Latitudine,Longitudine"
     orari = (

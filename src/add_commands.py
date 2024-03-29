@@ -1,17 +1,10 @@
 """
 add runtime command
 """
-# pylint: disable=R0914
-# pylint: disable=E1120
-# pylint: disable=W0401
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0718
 import json
 from typing import Final
-from telegram.ext import Application
 import requests
+from telegram.ext import Application
 from src.lib.config import BOT_CONFIG
 
 TOKEN: Final = BOT_CONFIG['__TOKEN']
@@ -39,3 +32,4 @@ async def add_commands(app: Application) -> None:
         ("eventi", "visualizza gli special nights events"),
         ("info", "visualizza le informazioni del ristorante")
         ]
+    return cmd, app

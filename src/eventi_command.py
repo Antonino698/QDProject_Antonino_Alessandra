@@ -1,11 +1,9 @@
 """
 View restaurant events
 """
-# pylint: disable=W0401
-# pylint: disable=W0613
-# pylint: disable=W0614
+
 from typing import Any
-from src.lib.lib import *
+from src.lib.lib import os, Update, CallbackContext
 
 ## Funzione di gestione del comando /eventi
 # Mostra la locandina dei prossimi eventi in formato .jpg
@@ -18,3 +16,5 @@ async def eventi_command(update: Update, context: CallbackContext, bot: Any = No
     # Invia la foto utilizzando il bot
     with open(image_path, 'rb') as photo_file:
         await context.bot.sendPhoto(update.effective_chat.id, photo=photo_file)
+
+    return bot

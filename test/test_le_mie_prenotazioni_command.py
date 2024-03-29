@@ -1,16 +1,7 @@
 """
 modulo le mie prenotazioni command
 """
-# pylint: disable=R0914
-# pylint: disable=E1120
-# pylint: disable=W0401
-# pylint: disable=W0611
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0621
-# pylint: disable=W0718
-# pylint: disable=R0801
+
 import asyncio
 from unittest.mock import AsyncMock, patch, ANY, MagicMock
 import pytest
