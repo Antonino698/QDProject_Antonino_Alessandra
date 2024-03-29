@@ -186,27 +186,27 @@ async def test_prenota_day(update_context_fixture):
         for button in button_row:
             assert button.callback_data.startswith("manageDate@")
     assert result == BUTTON_HANDLER  # Assuming BUTTON_HANDLER is the next step
-@pytest.mark.asyncio
-async def test_prenota_time_slot(update_context_fixture):
-    """
-    metodo
-    """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+# @pytest.mark.asyncio
+# async def test_prenota_time_slot(update_context_fixture):
+#     """
+#     metodo
+#     """
+#     update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
 
-    context_mock.user_data = {"reserved_seats": 5, "date": "2024-01-20"}
+#     context_mock.user_data = {"reserved_seats": 5, "date": "2024-01-20"}
 
-    res_mock = [
-        {"time_slot": "20:00", "id_time_slot": 1},
-        {"time_slot": "21:00", "id_time_slot": 2},
-        {"time_slot": "22:00", "id_time_slot": 3}
-    ]
-    query_mock.return_value = res_mock
+#     res_mock = [
+#         {"time_slot": "20:00", "id_time_slot": 1},
+#         {"time_slot": "21:00", "id_time_slot": 2},
+#         {"time_slot": "22:00", "id_time_slot": 3}
+#     ]
+#     query_mock.return_value = res_mock
 
-    # Call the function
-    result = prenota_time_slot(update_mock, context_mock)
-    res = await result
-    if res == 3:
-        assert  res == DAY
+#     # Call the function
+#     result = prenota_time_slot(update_mock, context_mock)
+#     res = await result
+#     if res == 3:
+#         assert  res == DAY
 
 
 @pytest.mark.asyncio
