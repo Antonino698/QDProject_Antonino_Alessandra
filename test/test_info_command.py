@@ -2,8 +2,7 @@
 modulo le mie prenotazioni command
 """
 
-from test.fixture import AsyncMock
-from unittest.mock import patch
+from unittest.mock import patch,AsyncMock
 import pytest
 from src.info_command import info_command
 

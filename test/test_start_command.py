@@ -1,8 +1,9 @@
 """
 modulo start command
 """
-
-from test.fixture import ConversationHandler,pytest,AsyncMock
+from unittest.mock import  AsyncMock
+import pytest
+from src.lib.lib import ConversationHandler
 from src.start_command import start_command
 
 @pytest.mark.asyncio

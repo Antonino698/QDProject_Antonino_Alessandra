@@ -2,7 +2,11 @@
 TEST Menu Command
 """
 
-from test.fixture import pytest,os,Image,BytesIO,ANY,AsyncMock
+import os
+from unittest.mock import ANY,AsyncMock
+from io import BytesIO
+import pytest
+from PIL import Image
 from src.menu_command import menu_command
 
 @pytest.mark.asyncio
