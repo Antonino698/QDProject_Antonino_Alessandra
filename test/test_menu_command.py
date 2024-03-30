@@ -1,25 +1,17 @@
 """
 TEST Menu Command
 """
-# pylint: disable=R0914
-# pylint: disable=W0104
-# pylint: disable=W0401
-# pylint: disable=W0401
-# pylint: disable=W0611
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0621
-# pylint: disable=W0718
-# pylint: disable=R0801
-from test.fixture import *
+
+from test.fixture import pytest,os,Image,BytesIO,ANY,AsyncMock
 from src.menu_command import menu_command
+
 @pytest.mark.asyncio
-async def test_menu_command(update_context_fixture):
+async def test_menu_command():
     """
     Menu Command Mock
     """
-    update_mock, context_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
     # ARRANGE: Prepara lo stato iniziale e ottieni il percorso dell'immagine
     image_path = os.path.join("src", "media", "Menu.jpg")
 
@@ -35,7 +27,6 @@ async def test_menu_command(update_context_fixture):
     expected_text = "Ecco il nostro menu:"
     await context_mock.bot.send_message(text=expected_text)
     assert image_data is not None
-    assert image_path.lower().endswith('.jpg') or image_path.lower().endswith('.jpeg')
     assert image is not None
     assert image.size[0] > 0 and image.size[1] > 0
     context_mock.bot.sendPhoto.assert_called_once_with(update_mock.effective_chat.id, photo= ANY)

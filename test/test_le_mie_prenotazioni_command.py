@@ -2,35 +2,21 @@
 modulo le mie prenotazioni command
 """
 
-import asyncio
-from unittest.mock import AsyncMock, patch, ANY, MagicMock
+from unittest.mock import AsyncMock
 import pytest
-from src.lib.lib import *
-from src.le_mie_prenotazioni_command import *
-from src.lib.mysql_class import MySQLDatabase
+from src.le_mie_prenotazioni_command import datetime
 
-from src.start_command import *
-@pytest.fixture
-def update_context_fixture():
-    """
-    fixture
-    """
-    update_mock = AsyncMock()
-    context_mock = AsyncMock()
-    query_mock = AsyncMock()
-    bot_mock = AsyncMock()
-    db_mock = AsyncMock()
-    return update_mock, context_mock, query_mock, bot_mock, db_mock
+
 
 @pytest.mark.asyncio
-async def test_le_mie_prenotazioni_command(update_context_fixture):
+async def test_le_mie_prenotazioni_command():
     """
     fixture
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    context_mock = AsyncMock()
+    db_mock = AsyncMock()
 
     # Crea un mock della connessione al database
-    db_mock = AsyncMock()
     #user_id=123
     prenotazioni_di_prova=[
     {
@@ -67,26 +53,24 @@ async def test_le_mie_prenotazioni_command(update_context_fixture):
     db_mock.select_query.return_value = prenotazioni_di_prova
     context_mock.user_data = {}
     lista_prenotazioni = []
-    for i, item in enumerate(prenotazioni_di_prova):
-        context_mock.user_data["id_prenotazione"]=prenotazioni_di_prova[i]['id']
-        context_mock.user_data["id_user"]=prenotazioni_di_prova[i]['id_user']
-        context_mock.user_data["name"]=prenotazioni_di_prova[i]['name']
-        context_mock.user_data["phone"]=prenotazioni_di_prova[i]['phone']
-        context_mock.user_data["reserved_seats"]=prenotazioni_di_prova[i]['reserved_seats']
-        context_mock.user_data["date"]=prenotazioni_di_prova[i]['day']
-        context_mock.user_data["time_slot"] =  prenotazioni_di_prova[i]['tms']
-        context_mock.user_data["time_slot_id"] = prenotazioni_di_prova[i]['time_slot']
-        date_in_iso1 = datetime.strptime(
-            str(context_mock.user_data["date"]), '%Y-%m-%d').strftime('%d-%m-%Y')
+    for item in prenotazioni_di_prova:
+        context_mock.user_data["id_prenotazione"]=item['id']
+        context_mock.user_data["id_user"]=item['id_user']
+        context_mock.user_data["name"]=item['name']
+        context_mock.user_data["phone"]=item['phone']
+        context_mock.user_data["reserved_seats"]=item['reserved_seats']
+        context_mock.user_data["date"]=item['day']
+        context_mock.user_data["time_slot"] =  item['tms']
+        context_mock.user_data["time_slot_id"] = item['time_slot']
         prenotazioni_message = (
-            f'ID_PRENOTAZIONE: {prenotazioni_di_prova[i]['id']}\n'
-            f'Nome: {prenotazioni_di_prova[i]['name']}\n'
-            f'Telefono: {prenotazioni_di_prova[i]['phone']}\n'
-            f'Posti prenotati: {prenotazioni_di_prova[i]['reserved_seats']}\n'
+            f'ID_PRENOTAZIONE: {item['id']}\n'
+            f'Nome: {item['name']}\n'
+            f'Telefono: {item['phone']}\n'
+            f'Posti prenotati: {item['reserved_seats']}\n'
             f'Giorno: {datetime.strptime(
-                str(prenotazioni_di_prova[i]['day'])
+                str(item['day'])
                 , "%Y-%m-%d").strftime("%d-%m-%Y")}\n'
-            f'Ora: {prenotazioni_di_prova[i]['time_slot']}\n\n'
+            f'Ora: {item['time_slot']}\n\n'
         )
         lista_prenotazioni.append(prenotazioni_message)
 

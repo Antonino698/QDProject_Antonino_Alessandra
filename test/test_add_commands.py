@@ -1,35 +1,18 @@
 """"
 add commands test module
 """
-# pylint: disable=R0914
-# pylint: disable=E1120
-# pylint: disable=W0401
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0621
-# pylint: disable=W0718
 import json
 from unittest.mock import AsyncMock, patch
 import pytest
 from src import add_commands
 
-@pytest.fixture
-def update_context_fixture():
-    """"
-    fixture
-    """
-    update_mock = AsyncMock()
-    context_mock = AsyncMock()
-    return update_mock, context_mock
-
 @pytest.mark.asyncio
-async def test_add_commands(update_context_fixture):
+async def test_add_commands():
     """"
     metodo
     """
-    update_mock, context_mock = update_context_fixture
-
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
 
     # Mocking the response of the requests.get function
     with patch("src.add_commands.requests.get") as mock_get:

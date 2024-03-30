@@ -1,61 +1,39 @@
 """
 modulo prenota command
 """
-# pylint: disable=R0914
-# pylint: disable=W0104
-# pylint: disable=W0401
-# pylint: disable=W0401
-# pylint: disable=W0611
-# pylint: disable=W0612
-# pylint: disable=W0613
-# pylint: disable=W0614
-# pylint: disable=W0621
-# pylint: disable=W0718
-# pylint: disable=R0801
-import asyncio
-from unittest.mock import AsyncMock,MagicMock, patch, ANY
+
+from unittest.mock import AsyncMock, ANY
 import pytest
 #from unittest import mock
-from src.lib.lib import *
-from src.lib.mysql_class import MySQLDatabase
+from src.lib.lib import NAME,PHONE,RESERVED_SEATS,DAY,BUTTON_HANDLER,CONFIRMATION
 from src.prenota_command import (
     prenota_start,
     prenota_name,
     prenota_phone,
     prenota_reserved_seats,
     prenota_day,
-    prenota_time_slot,
     confirmation,
     button_click,
 )
 
-@pytest.fixture
-def update_context_fixture():
-    """
-    fixture
-    """
-    update_mock = AsyncMock()
-    context_mock = AsyncMock()
-    query_mock = AsyncMock()
-    bot_mock = AsyncMock()
-    db_mock = AsyncMock()
-    return update_mock, context_mock, query_mock, bot_mock, db_mock
 
 @pytest.mark.asyncio
-async def test_prenota_start(update_context_fixture):
+async def test_prenota_start():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
     result = await prenota_start(update_mock, context_mock)
     assert result == NAME  # Make sure to import NAME from your actual code
 
 @pytest.mark.asyncio
-async def test_prenota_name(update_context_fixture):
+async def test_prenota_name():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
 
     # Setting up context.user_data with a name
     name_value = "Paperino"
@@ -74,11 +52,12 @@ async def test_prenota_name(update_context_fixture):
     assert result == PHONE  # Assuming PHONE is the next step
 
 @pytest.mark.asyncio
-async def test_prenota_phone(update_context_fixture):
+async def test_prenota_phone():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
 
     # Setting up context.user_data with a name
     phone_value = "1234455678"
@@ -98,11 +77,12 @@ async def test_prenota_phone(update_context_fixture):
     assert result == RESERVED_SEATS  # Assuming RESERVED_SEATS is the next step
 
 @pytest.mark.asyncio
-async def test_prenota_reserved_seats_valid_input(update_context_fixture):
+async def test_prenota_reserved_seats_valid_input():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
 
     seats_value = "5"
     update_mock.message.text = seats_value
@@ -123,11 +103,12 @@ async def test_prenota_reserved_seats_valid_input(update_context_fixture):
 
 
 @pytest.mark.asyncio
-async def test_prenota_reserved_seats_invalid_input(update_context_fixture):
+async def test_prenota_reserved_seats_invalid_input():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
 
     seats_value = "invalid_input"
     update_mock.message.text = seats_value
@@ -143,11 +124,12 @@ async def test_prenota_reserved_seats_invalid_input(update_context_fixture):
     await context_mock.bot.send_message(text=expected_text)
 
 @pytest.mark.asyncio
-async def test_prenota_reserved_seats_out_of_range(update_context_fixture):
+async def test_prenota_reserved_seats_out_of_range():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
 
     seats_value ="15"
     update_mock.message.text = seats_value
@@ -163,11 +145,12 @@ async def test_prenota_reserved_seats_out_of_range(update_context_fixture):
     await context_mock.bot.send_message(text=expected_text)
 
 @pytest.mark.asyncio
-async def test_prenota_day(update_context_fixture):
+async def test_prenota_day():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
 
     # Chiamata alla funzione prenota_day
     result = await prenota_day(update_mock, context_mock)
@@ -210,11 +193,12 @@ async def test_prenota_day(update_context_fixture):
 
 
 @pytest.mark.asyncio
-async def test_confirmation(update_context_fixture, mocker):
+async def test_confirmation(mocker):
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
 
     # Configuriamo il dizionario user_data con dati di esempio
     context_mock.user_data = {
@@ -229,7 +213,8 @@ async def test_confirmation(update_context_fixture, mocker):
         """
         metodo
         """
-        print(kwargs)
+
+        print(args,kwargs)
         assert 'Conferma' in kwargs['reply_markup'].inline_keyboard[0][0].text
         assert 'Annulla' in kwargs['reply_markup'].inline_keyboard[0][1].text
         return AsyncMock()
@@ -284,11 +269,14 @@ async def test_confirmation(update_context_fixture, mocker):
 #     assert result == TIME_SLOT
 
 @pytest.mark.asyncio
-async def test_button_click_time(update_context_fixture):
+async def test_button_click_time():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
+    query_mock = AsyncMock()
+    bot_mock = AsyncMock()
 
     query_mock.data = "manageTime@20:00#1"
     update_mock.callback_query = query_mock
@@ -309,11 +297,14 @@ async def test_button_click_time(update_context_fixture):
 
 
 @pytest.mark.asyncio
-async def test_button_click_pren(update_context_fixture):
+async def test_button_click_pren():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
+    query_mock = AsyncMock()
+    bot_mock = AsyncMock()
 
     query_mock.data = "confirmPren"
     update_mock.callback_query = query_mock
@@ -337,11 +328,14 @@ async def test_button_click_pren(update_context_fixture):
     assert result == 6
 
 @pytest.mark.asyncio
-async def test_button_click_decline(update_context_fixture):
+async def test_button_click_decline():
     """
     metodo
     """
-    update_mock, context_mock, query_mock, bot_mock, db_mock = update_context_fixture
+    update_mock = AsyncMock()
+    context_mock = AsyncMock()
+    query_mock = AsyncMock()
+    bot_mock = AsyncMock()
 
     query_mock.data = "declinePren"
     update_mock.callback_query = query_mock
